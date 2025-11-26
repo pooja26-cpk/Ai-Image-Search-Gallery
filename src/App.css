@@ -1,0 +1,68 @@
+:root {
+  --bg-light: #f7fbff;
+  --text-light: #0b132b;
+  --bg-dark: #0b132b;
+  --text-dark: #e0e6ff;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #1a2238;
+}
+
+.app {
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.app.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.app.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.navbar-custom {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.grid-container {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.image-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.image-card:hover img {
+  transform: scale(1.03);
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.modal-body-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.brand-title {
+  font-weight: 600;
+}
+
+.search-section {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.load-more {
+  margin-top: 1rem;
+}
