@@ -4,6 +4,14 @@ export async function searchImages(query, page = 1) {
   url.searchParams.set('query', query);
   url.searchParams.set('page', String(page));
   url.searchParams.set('client_id', ACCESS_KEY);
-  const res = await fetch(url.toString());
-  return res.json();
+  try {
+    const res = await fetch(url.toString());
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    return { results: [] }; // Return an empty array on error
+  }
 }

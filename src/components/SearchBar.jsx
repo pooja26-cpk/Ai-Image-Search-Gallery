@@ -1,10 +1,16 @@
 import { useState } from 'react';
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
 
 export default function SearchBar({ onSearch }) {
   const [term, setTerm] = useState('');
 
   const submit = () => {
     if (typeof onSearch === 'function') onSearch(term);
+  };
+
+  const clearSearch = () => {
+    setTerm('');
+    if (typeof onSearch === 'function') onSearch('');
   };
 
   const onKeyDown = (e) => {
@@ -15,19 +21,22 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <div className="d-flex gap-2">
-      <input
-        type="text"
-        className="form-control"
+    <InputGroup className="mb-3">
+      <FormControl
         placeholder="Search images"
+        aria-label="Search images"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
         onKeyDown={onKeyDown}
       />
-      <button type="button" className="btn btn-primary" onClick={submit}>
+      {term && (
+        <Button variant="outline-secondary" onClick={clearSearch}>
+          Clear
+        </Button>
+      )}
+      <Button variant="primary" onClick={submit}>
         Search
-      </button>
-    </div>
+      </Button>
+    </InputGroup>
   );
 }
-

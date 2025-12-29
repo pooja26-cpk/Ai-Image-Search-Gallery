@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Navbar } from 'react-bootstrap';
+import { Container, Navbar, Alert } from 'react-bootstrap';
 import SearchBar from './components/SearchBar';
 import ImageGrid from './components/ImageGrid';
 import ImageModal from './components/ImageModal';
@@ -10,6 +10,8 @@ function App() {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('theme');
@@ -34,21 +36,39 @@ function App() {
   const handleSearch = async (q) => {
     const term = (q || '').trim();
     if (!term) return;
+    setLoading(true);
+    setError(null); // Clear previous errors
     setQuery(term);
     setPage(1);
     setImages([]);
-    const data = await searchImages(term, 1);
-    const results = Array.isArray(data?.results) ? data.results : [];
-    setImages(uniqueById(results));
+    try {
+      const data = await searchImages(term, 1);
+      const results = Array.isArray(data?.results) ? data.results : [];
+      setImages(uniqueById(results));
+    } catch (e) {
+      setError("Failed to fetch images. Please try again later.");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loadMore = async () => {
     if (!query) return;
+    setLoading(true);
+    setError(null); // Clear previous errors
     const next = page + 1;
-    const data = await searchImages(query, next);
-    const nextImages = Array.isArray(data?.results) ? data.results : [];
-    setImages((prev) => uniqueById([...prev, ...nextImages]));
-    setPage(next);
+    try {
+      const data = await searchImages(query, next);
+      const nextImages = Array.isArray(data?.results) ? data.results : [];
+      setImages((prev) => uniqueById([...prev, ...nextImages]));
+      setPage(next);
+    } catch (e) {
+      setError("Failed to load more images. Please try again later.");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const selectImage = (img) => {
@@ -67,7 +87,7 @@ function App() {
 
   return (
     <div className={`app ${theme}`}>
-      <Navbar className="navbar-custom" bg={theme === 'dark' ? 'dark' : 'light'} variant={theme === 'dark' ? 'dark' : 'light'}>
+      <Navbar className={`navbar-custom ${theme === 'dark' ? 'navbar-dark' : 'navbar-light'}`} bg={theme === 'dark' ? 'dark' : 'light'} variant={theme === 'dark' ? 'dark' : 'light'}>
         <Container className="justify-content-between">
           <div className="brand-title">AI Image Search Gallery</div>
           <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
@@ -77,7 +97,8 @@ function App() {
         <div className="search-section">
           <SearchBar onSearch={handleSearch} />
         </div>
-        <ImageGrid images={images} onLoadMore={loadMore} onSelectImage={selectImage} />
+        {error && <Alert variant="danger">{error}</Alert>}
+        <ImageGrid images={images} onLoadMore={loadMore} onSelectImage={selectImage} loading={loading} />
       </Container>
       <ImageModal show={!!selectedImage} image={selectedImage} onClose={closeModal} />
     </div>

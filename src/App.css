@@ -1,15 +1,19 @@
-:root {
-  --bg-light: #f7fbff;
-  --text-light: #0b132b;
-  --bg-dark: #0b132b;
-  --text-dark: #e0e6ff;
-  --card-bg-light: #ffffff;
-  --card-bg-dark: #1a2238;
-}
-
 .app {
   min-height: 100vh;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+:root {
+  --bg-light: #f0f2f5; /* Light gray background */
+  --text-light: #333333; /* Dark gray text */
+  --bg-dark: #2c3e50; /* Dark blue background */
+  --text-dark: #ecf0f1; /* Light gray text */
+  --card-bg-light: #ffffff; /* White card background */
+  --card-bg-dark: #34495e; /* Slightly lighter dark blue for cards */
+  --navbar-bg-light: #ffffff; /* White navbar background */
+  --navbar-bg-dark: #2c3e50; /* Dark blue navbar background */
+  --navbar-text-light: #333333; /* Dark gray navbar text */
+  --navbar-text-dark: #ecf0f1; /* Light gray navbar text */
 }
 
 .app.light {
@@ -26,9 +30,29 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.grid-container {
-  padding-top: 1rem;
-  padding-bottom: 2rem;
+.navbar-custom.navbar-light {
+  background-color: var(--navbar-bg-light);
+  color: var(--navbar-text-light);
+}
+
+.navbar-custom.navbar-dark {
+  background-color: var(--navbar-bg-dark);
+  color: var(--navbar-text-dark);
+}
+
+.brand-title {
+  font-weight: 600;
+}
+
+.image-card {
+  background-color: var(--card-bg-light);
+  color: var(--text-light);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.app.dark .image-card {
+  background-color: var(--card-bg-dark);
+  color: var(--text-dark);
 }
 
 .image-card img {
@@ -52,10 +76,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
-
-.brand-title {
-  font-weight: 600;
 }
 
 .search-section {
