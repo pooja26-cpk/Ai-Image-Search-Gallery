@@ -87,9 +87,9 @@ function App() {
 
   return (
     <div className={`app ${theme}`}>
-      <Navbar className={`navbar-custom ${theme === 'dark' ? 'navbar-dark' : 'navbar-light'}`} bg={theme === 'dark' ? 'dark' : 'light'} variant={theme === 'dark' ? 'dark' : 'light'}>
-        <Container className="justify-content-between">
-          <div className="brand-title">AI Image Search Gallery</div>
+      <Navbar className={`navbar-custom ${theme === 'dark' ? 'navbar-dark' : 'navbar-light'}`}>
+        <Container className="justify-content-between align-items-center">
+          <div className="brand-title">AI Gallery</div>
           <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
         </Container>
       </Navbar>

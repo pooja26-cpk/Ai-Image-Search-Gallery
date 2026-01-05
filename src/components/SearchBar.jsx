@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 export default function SearchBar({ onSearch }) {
   const [term, setTerm] = useState('');
 
   const submit = () => {
     if (typeof onSearch === 'function') onSearch(term);
-  };
-
-  const clearSearch = () => {
-    setTerm('');
-    if (typeof onSearch === 'function') onSearch('');
   };
 
   const onKeyDown = (e) => {
@@ -21,22 +16,22 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <InputGroup className="mb-3">
-      <FormControl
-        placeholder="Search images"
+    <div className="search-container">
+      <Form.Control
+        className="modern-input"
+        placeholder="Search for high-quality images..."
         aria-label="Search images"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
         onKeyDown={onKeyDown}
       />
-      {term && (
-        <Button variant="outline-secondary" onClick={clearSearch}>
-          Clear
-        </Button>
-      )}
-      <Button variant="primary" onClick={submit}>
+      <Button 
+        variant="primary" 
+        className="search-btn" 
+        onClick={submit}
+      >
         Search
       </Button>
-    </InputGroup>
+    </div>
   );
 }
