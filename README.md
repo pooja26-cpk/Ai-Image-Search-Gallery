@@ -1,16 +1,101 @@
-# React + Vite
+# AI Image Search Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About the Project
 
-Currently, two official plugins are available:
+AI Image Search Gallery is a React-based web application that allows users to search for images using the Unsplash API. It provides a responsive grid layout to display search results, with features like infinite scrolling (load more), image modal viewing, and dark/light theme toggle.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- **Frontend Framework**: React 19.2.0
+- **Build Tool**: Vite 7.2.4
+- **Styling**: Bootstrap 5.3.8, React Bootstrap 2.10.10
+- **API**: Unsplash API for image search
+- **Linting**: ESLint
+- **Language**: JavaScript (ES6+)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Folder Structure
 
-## Expanding the ESLint configuration
+```
+f:/Ai-Image-Gallery/
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── assets/
+│   │   └── react.svg
+│   ├── components/
+│   │   ├── ImageCard.jsx
+│   │   ├── ImageGrid.jsx
+│   │   ├── ImageModal.jsx
+│   │   ├── SearchBar.jsx
+│   │   └── ThemeToggle.jsx
+│   ├── api.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+└── vite.config.js
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- **Image Search**: Search for images by keywords using the Unsplash API.
+- **Responsive Grid Layout**: Displays images in a responsive grid using Bootstrap.
+- **Load More**: Paginated loading to fetch more images without reloading the page.
+- **Image Modal**: Click on an image to view it in a larger modal window.
+- **Theme Toggle**: Switch between light and dark themes, with preference saved in localStorage.
+- **Error Handling**: Displays error messages for failed API requests.
+- **Loading Indicators**: Shows spinner during data fetching.
+
+## How It Works
+
+1. **Search Functionality**: Users enter a search query in the search bar. The app sends a request to the Unsplash API with the query and page number.
+
+2. **API Integration**: The `api.js` file handles the API calls to Unsplash, using a client ID for authentication. It fetches search results in JSON format.
+
+3. **State Management**: The main `App.jsx` component manages state for the search query, images list, current page, loading status, errors, selected image, and theme.
+
+4. **Rendering**: Images are displayed in a grid using the `ImageGrid` component, which maps over the images array and renders `ImageCard` components.
+
+5. **Interactions**:
+   - Clicking "Load More" fetches the next page of results and appends them to the existing list.
+   - Clicking an image opens it in an `ImageModal` for detailed viewing.
+   - The theme toggle switches between light and dark modes, updating the UI classes accordingly.
+
+6. **Styling**: Bootstrap provides the base styling, with custom CSS in `App.css` for additional theming and layout adjustments.
+
+## Installation and Setup
+
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   cd ai-image-gallery
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Start the development server:
+   ```
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173` (or the port shown in the terminal).
+
+## Available Scripts
+
+- `npm run dev`: Starts the development server with hot reloading.
+- `npm run build`: Builds the app for production.
+- `npm run lint`: Runs ESLint to check for code issues.
+- `npm run preview`: Previews the production build locally.
+
+## API Key
+
+The app uses the Unsplash API. The client ID is hardcoded in `src/api.js` for demonstration purposes. In a production environment, consider using environment variables to store API keys securely.
